@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מסמך</title>
+    <style>
+        Table {
+            border-collapse: breakdown;
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        body {
+            direction: rtl;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> rest api</h1>
+    <h2> השרת שלנו מכיל את ה-resources הבאים</h2>
+
+    <h2>כתובת השרת: <a href="http://localhost:3000">http://localhost:3000</a></h2>
+    <h3>product</h3>
+    <table>
+        <tr>
+            <th>method</th>
+            <th> כתובת url </th>
+            <th> פרמטרים</th>
+            <th>body</th>
+            <th>headers</th>
+            <th>מה מחזיר</th>
+            <th>פרמטרים אופציונלים</th>
+            <th>curd operation</th>
+            <th> מקרי קיצון</th>
+            <th> תאור</th>
+        </tr>
+        <tr>
+            <td>get</td>
+            <td>/api/product</td>
+            <td>-</td>
+            <td>-</td>
+            <td>token admin/user</td>
+            <td> name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td> page, perPage, searchProductName, searchPrice </td>
+            <td>read</td>
+            <td>401- משמש לא מוזהה, 403- משתמש לא מורשה</td>
+            <td>שליפת כל המוצרים לכל מי שרשום במערכת</td>
+        </tr>
+        <tr>
+            <td>get</td>
+            <td>/api/product{_id}</td>
+            <td>_id- קוד מוצר</td>
+            <td>-</td>
+            <td>token admin/user</td>
+            <td> name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td> page, perPage, searchProductName, searchPrice </td>
+            <td>read</td>
+            <td>  403 משתמש לא מוזהה, 404- לא קיים כזה קוד מוצר ו-400 לשגיאה כללית</td>
+            <td>שליפת מוצר מסוים</td>
+        </tr>
+        <tr>
+            <td>post</td>
+            <td>/api/product</td>
+            <td>-</td>
+            <td> name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td>token admin</td>
+            <td> name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td>-</td>
+            <td>create</td>
+            <td>   401- משתמש לא מוזההת 403 -משתמש לא מורשה 404 פרמטרים לא חוקייםת 409 כאשר קיים כבר כזה מוצר ו-400 לשגיאה כללית</td>
+            <td>הוספת מוצר חדש</td>
+
+        </tr>
+        <tr>
+            <td>put</td>
+            <td>/api/produc/{_id}</td>
+            <td>_id- קוד מוצר</td>
+            <td>name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td>token admin</td>
+            <td>name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td>-</td>
+            <td>update</td>
+            <td>  401-משתמש לא מוזהה, ו-403- משתמש לא מורשה, 404- פרמטרים לא חוקיים ו-400 לשגיאה כללית</td>
+            <td>עדכון מוצר מסוים</td>
+        </tr>
+        <tr>
+            <td>delete</td>
+            <td>/api/produc/{_id}</td>
+            <td>_id- קוד מוצר</td>
+            <td>-</td>
+            <td>token admin</td>
+            <td>name, description, DateOfProduction, RoutingToImage, Type, Component, price</td>
+            <td>-</td>
+            <td>delete</td>
+            <td>401- משתמש לא מוזהה, 403- משתמש לא מורשה, 404- לא קיים כזה קוד מוצר, ו-400 לשגיאה כללית</td>
+            <td>מחיקה מוצר מסוים</td>
+        </tr>
+    </table>
+
+    <h3>users</h3>
+    <table>
+        <tr>
+            <th>method</th>
+            <th> כתובת url </th>
+            <th> פרמטרים</th>
+            <th>body</th>
+            <th>headers</th>
+            <th>מה מחזיר</th>
+            <th>פרמטרים אופציונלים</th>
+            <th>curd operation</th>
+            <th> מקרי קיצון</th>
+            <th> תאור</th>
+        </tr>
+        <tr>
+            <td>get</td>
+            <td>/api/user</td>
+            <td>-</td>
+            <td>-</td>
+            <td>token admin</td>
+            <td> email, userName, role, DateOfRegistration</td>
+            <td>-</td>
+            <td>read</td>
+            <td>401- משתמש לא מוזהה , 403ת משתמש לא מורשהת 400 לשגיאה כללית</td>
+            <td>שליפת כל המשמשים לכל מי שהוא מנהל</td>
+        </tr>
+        <tr>
+            <td>post</td>
+            <td>/api/user</td>
+            <td>-</td>
+            <td> userName, password, email</td>
+            <td>-</td>
+            <td> token, userName, email</td>
+            <td>-</td>
+            <td>create</td>
+            <td> 409 כאשר קיים כבר משמש עם כאלו פרטי ו-400 לשגיאה כללית</td>
+            <td>   יצירת משתמש חדש</td>
+
+        </tr>
+        <tr>
+            <td>post</td>
+            <td>/api/user/login</td>
+            <td>-</td>
+            <td> userName, password</td>
+            <td>-</td>
+            <td> token, userName, email</td>
+            <td>-</td>
+            <td>login</td>
+            <td> 404  כאשר לא קיים משתמש עם כאלו פרטים ו-400 לשגיאה כללית</td>
+            <td> התחברות משתמש קיים </td>
+
+        </tr>
+     
+    </table>
+    <h3>orders</h3>
+    <table>
+        <tr>
+            <th>method</th>
+            <th> כתובת url </th>
+            <th> פרמטרים</th>
+            <th>body</th>
+            <th>headers</th>
+            <th>מה מחזיר</th>
+            <th>פרמטרים אופציונלים</th>
+            <th>curd operation</th>
+            <th> מקרי קיצון</th>
+            <th> תאור</th>
+        </tr>
+        <tr>
+            <td>get</td>
+            <td>/api/order</td>
+            <td>-</td>
+            <td>-</td>
+            <td>token admin</td>
+            <td>  DueDate,
+                address,
+                products,
+                startOff,
+                ordDate,
+                userId</td>
+            <td>-</td>
+            <td>read</td>
+            <td>401- משמש לא מוזהה, 403- משתמש לא מורשה</td>
+            <td>שליפת כל ההזמנות במערכת</td>
+        </tr>
+        <tr>
+            <td>get</td>
+            <td>/api/order</td>
+            <td>-</td>
+            <td>-</td>
+            <td>token user</td>
+            <td>  DueDate,
+                address,
+                products,
+                startOff,
+                ordDate,
+                userId</td>
+            <td>-</td>
+            <td>read</td>
+            <td>401- משמש לא מוזהה, 404 -לא קיים כזה קוד משתמש, ו-400 לשגיאה כללית</td>
+            <td>שליפת כל ההזמנות למשתמש בעל התוקן   </td>
+        </tr>
+        
+        <tr>
+            <td>post</td>
+            <td>/api/product</td>
+            <td>-</td>
+            <td>  DueDate,
+                address,
+                products,
+                startOff,
+                ordDate,
+                userId</td>
+            <td>token user</td>
+            <td>  DueDate,
+                address,
+                products,
+                startOff,
+                ordDate,
+                userId</td>   
+             <td>-</td>
+            <td>create</td>
+            <td>   401- משתמש לא מוזההת  404 פרמטרים לא חוקייםת 409 כאשר קיים כבר כזה הזמנה ו-400 לשגיאה כללית</td>
+            <td>הוספת הזמנה חדשה</td>
+
+        </tr>
+        <tr>
+            <td>put</td>
+            <td>/api/produc/{_id}</td>
+            <td>_id- קוד הזמנה</td>
+            <td>startOff:true</td>
+            <td>token admin</td>
+            <td>  DueDate,
+                address,
+                products,
+                startOff,
+                ordDate,
+                userId</td>               
+                <td>-</td>
+            <td>update</td>
+            <td>401- משתמש לא מוזהה, 403- משתמש לא מורשה, 404- לא קיים כזה קוד הזמנה, ו-400 לשגיאה כללית</td>
+            <td>עדכון הזמנה מסוימת שיצאה לדרך</td>
+        </tr>
+        <tr>
+            <td>delete</td>
+            <td>/api/produc/{_id}</td>
+            <td>_id- קוד הזמנה</td>
+            <td>-</td>
+            <td>token admin/ token oner user</td>
+            <td>  DueDate,
+                address,
+                products,
+                startOff,
+                ordDate,
+                userId</td>   
+            <td>-</td>
+            <td>delete</td>
+            <td>401- משתמש לא מוזהה, 403- משתמש לא מורשה, 404- לא קיים כזה קוד הזמנה, ו-400 לשגיאה כללית</td>
+            <td>מחיקה הזמנה מסוים</td>
+        </tr>
+    </table>
+
+</body>
